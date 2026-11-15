@@ -1,5 +1,10 @@
 # Changelog
 
+### 变更（运行时身份换代：DSH → pi-alt，`.dsh` → `.pi-alt`，2026-11-15）
+
+- **为什么改**：用户 2026-11-15 决定退役第二个 harness（DSH），改用同一个 pi harness 的第二身份 `pi-alt` 跑闭源 / 私有项目——命令 `pi-alt`、全局 `~/.pi-alt/agent`、项目级 `.pi-alt/`。理由：TUI、快捷键、斜杠命令、技能与扩展机制与 pi 完全一致，升级只做一次（`pi update --self`）。
+- **改了什么**：① `.dsh/` 目录改名为 `.pi-alt/`，`APPEND_SYSTEM.md` 改写为 pi-alt 语义（pi 原生加载，无需插件）；② `AGENTS.md` 的「运行时」段由 pi / DSH 两支改为 pi / pi-alt 两支，另两处 DSH 表述同步改；③ 子项目 NewsScoreStudy 的形态描述改为 pi-alt-team。
+- **回归风险**：无——不涉及研究代码、数据与回测口径；只替换运行时指令载体。
 ### 变更（同步子项目更名：TeamToolkit → agents-infra，2026-11-11）
 
 - **为什么改**：用户 2026-11-11 决定把 Kit 名下的子项目 TeamToolkit 更名为 **agents-infra**（GitHub 仓库 `xhqing/TeamToolkit` → `xhqing/agents-infra`，全局 `~/.pi/agent` 里的引用与发布脚本目录同批改完）。本仓库 `AGENTS.md` 里还留着一处指向旧名的引用。
