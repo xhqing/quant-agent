@@ -1,5 +1,11 @@
 # Changelog
 
+### 变更（pi 帽 APPEND_SYSTEM 同步改 pi-alt 表述，2026-11-15）
+
+- **为什么改**：`.dsh/` 已改为 `.pi-alt/`，但 `.pi/APPEND_SYSTEM.md` 仍写着「如果你在 DSH 下运行……见 `.dsh/`」，指向了已不存在的目录。
+- **改了什么**：① 运行时横幅改为 pi / pi-alt 两支；② NewsScoreStudy 的形态描述由 `.dsh` 改为 `.pi-alt`；③ 末条「不要混用 `.dsh/…` 的 dsh-team 规则」改为 pi-alt-team。
+- **回归风险**：无——纯规则文件表述。
+
 ### 变更（运行时身份换代：DSH → pi-alt，`.dsh` → `.pi-alt`，2026-11-15）
 
 - **为什么改**：用户 2026-11-15 决定退役第二个 harness（DSH），改用同一个 pi harness 的第二身份 `pi-alt` 跑闭源 / 私有项目——命令 `pi-alt`、全局 `~/.pi-alt/agent`、项目级 `.pi-alt/`。理由：TUI、快捷键、斜杠命令、技能与扩展机制与 pi 完全一致，升级只做一次（`pi update --self`）。
