@@ -1,6 +1,6 @@
 # pi-team 项目规则（quant-agent）
 
-> **Runtime: pi-team。** 本文件只适用于 pi；如果你在 DSH 下运行，忽略本文件，见 `.dsh/APPEND_SYSTEM.md`。
+> **Runtime: pi-team。** 本文件只适用于 pi；如果你在 pi-alt 下运行，忽略本文件，见 `.pi-alt/APPEND_SYSTEM.md`。
 
 本文件由 pi 在 cwd 位于本仓库（或其 worktree）时自动追加进系统提示。只写本仓库特有的 pi 约定；团队通用规则在全局 `~/.pi/agent/AGENTS.md`。
 
@@ -19,7 +19,7 @@
 ## 3. Leader / Worker
 
 - 本仓库是 **Agent 项目**：任何分支 / worktree 的根目录作为 cwd 的 pi 会话，都是 **Leader**。
-- 本仓库有一个私有子项目 **NewsScoreStudy**（`github.com/xhqing/NewsScoreStudy`，private；只列名，不介绍内容）。本仓库任何 worktree = Leader；NewsScoreStudy 的任何 worktree = Worker（它有自己的 `AGENTS.md` + `.dsh`，没有 `.pi`）。
+- 本仓库有一个私有子项目 **NewsScoreStudy**（`github.com/xhqing/NewsScoreStudy`，private；只列名，不介绍内容）。本仓库任何 worktree = Leader；NewsScoreStudy 的任何 worktree = Worker（它有自己的 `AGENTS.md` + `.pi-alt`，没有 `.pi`）。
 - 本仓库自己的任务 worktree 仍是 Leader；只有 NewsScoreStudy 的 worktree 才是 Worker。
 - Leader 的职责：同步 local main、按任务建 worktree、派任务、收尾；worktree 里不切 main、不 commit main。
 - 用 pi 的 `agent_call` / `agent_wake` 派活；若要交给某个子项目 Worker，那个子项目必须是独立仓库并已登记。
@@ -28,4 +28,4 @@
 ## 4. 其他 pi 约定
 
 - `.commit-cache.md` 是 pi 的提交缓存，按 pi 的 commit skill 维护。
-- 不要混用 `.dsh/APPEND_SYSTEM.md` 的 dsh-team 规则；两套运行时规则各管各的。
+- 不要混用 `.pi-alt/APPEND_SYSTEM.md` 的 pi-alt-team 规则；两套运行时规则各管各的。
