@@ -72,33 +72,27 @@ Mark 的核心产物是**量化策略代码 + 回测标定的可信度查表**�
 
 > 事实性 / 数值性结论先验证再陈述（实体归属、算术、日历、API 字段、费率），禁止把推测当事实——这条是量化工作的底线：策略代码里的每一个数值都必须有据可查、可复现。
 
-## 仓库结构：三个研究目录（2026-11-08 起）
+## 仓库结构：子项目（2026-11-23 起）
 
-三个研究项目原先各占一个独立仓库（`xhqing/Intraday`、`xhqing/Swing`、`xhqing/gridtrader`）。**2026-11-08 起三者并入本仓库成为三个目录**，不再各自占仓库；三个 GitHub 远端仓库保留为存档，原仓库的提交历史已随并入保留在本仓库 git 历史里。
+本仓库只装 **Mark 的 agent 项目**（身份、方法论、quant skill、展示面）。量化研究工作全在子项目独立仓库里跑。
 
-| 目录 | 内容 | 该目录的专属规则 |
+| 子项目仓库 | 内容 | 可见性 |
 |---|---|---|
-| `Intraday/` | 日内尺度策略研究（订单流 mbo 特征、分钟级 ML 信号、walk-forward 验证、执行口径模拟） | `Intraday/AGENTS.md` |
-| `Swing/` | 日 K 趋势跟随策略工具集（美股大盘股，完整文档 + 回测验证 + 可信度标定） | `Swing/AGENTS.md` |
-| `gridtrader/` | 网格交易策略开发及回测工具（Python / backtrader / Pipenv） | `gridtrader/AGENTS.md` |
+| [`xhqing/Intraday`](https://github.com/xhqing/Intraday) | 日内尺度策略研究（订单流 mbo 特征、分钟级 ML 信号、walk-forward 验证、执行口径模拟） | public |
+| [`xhqing/Swing`](https://github.com/xhqing/Swing) | 日 K 趋势跟随策略工具集（美股大盘股，完整文档 + 回测验证 + 可信度标定） | public |
+| [`xhqing/gridtrader`](https://github.com/xhqing/gridtrader) | 网格交易策略开发及回测工具（Python / backtrader / Pipenv，默认分支 `main`） | public |
+| **NewsScoreStudy** | 只列名，不介绍内容 | private |
+| **hyperliquid-research-trial** | 只列名，不介绍内容 | private |
+| **market-data-backup** | 行情数据快照仓（tick / 订单簿 / 分钟 K / 日 K 快照挂在 GitHub Release 上，仓库本体只有说明） | private |
 
-**动某个目录之前先读它自己的 `AGENTS.md`**：三个目录的硬约束各不相同（数据源与 data_cache 口径、label 用哪个价、参数调优纪律、依赖管理方式），规则写在各自那份文件里。
+- **地址**：上表未写 URL 的均为 `github.com/xhqing/<名字>`。
+- **历史**：Intraday / Swing / gridtrader 于 2026-11-08 曾并入本仓库、成为三个目录，**2026-11-23 按用户要求抽回为独立仓库**（内容含并入期间的最新版，提交历史连续）。
+- **子项目任务归 Worker**：子项目任何分支 / worktree 的会话是 Worker，只干当前 worktree 这一件事、不碰自己的 local main；本仓库任何分支 / worktree 的会话是 Leader，负责同步 local main、建 worktree、派任务、收尾。
+- **规则各管各的**：子项目规则写在它自己的 `AGENTS.md` 与 `.pi/APPEND_SYSTEM.md`（或私有项目的 `.pi-alt/`）里，不往本仓库写、本仓库也不写副本。cwd 在本仓库时，pi 只加载本仓库与祖先目录的规则，**要动哪个子项目，先显式读那个仓库的 `AGENTS.md`**。
 
-- **pi**：只自动加载 cwd 与祖先目录的 `AGENTS.md`，不会加载嵌套目录的规则，必须显式去读。
-- **pi-alt**：与 pi 相同，只加载 cwd 与祖先目录；动某个目录前仍显式读它。
+本仓库自己的统一约定：
 
-**私有子项目（独立仓库）**——只登记名与链接，不介绍内容：
-
-- **NewsScoreStudy**（`github.com/xhqing/NewsScoreStudy`，private，Mark 负责）
-- **hyperliquid-research-trial**（`github.com/xhqing/hyperliquid-research-trial`，private，Mark 负责）
-
-两个子项目都是 pi-alt-team 项目：没有 `.pi`，用 `.pi-alt/` + 实体 `AGENTS.md`；它们的任何 worktree = Worker，本仓库任何 worktree = Leader。
-
-并入时的统一约定：
-
-- **版本号**：仓库根 `VERSION` 是唯一权威，三个目录不再各自持有 `VERSION`（并入时已删除。原值：Intraday 0.1.2、Swing 0.1.1、gridtrader 0.1.2；本仓库根当时为 0.1.1）。
-- **改动记录**：一律记仓库根 `CHANGELOG.md`；三个目录各自的 `CHANGELOG.md` 已定格为历史记录、不再更新。
-- **许可证**：仓库根 `LICENSE.md` 覆盖全部目录，子目录不再各带一份。
-- **CI**：只有一个仓库，走仓库根 `.github/workflows/`；原子仓库的 workflow 已随并入删除（GitHub 不会读子目录里的 workflow）。
-- **quant skill**：只有一份，实体在 `.agents/skills/quant/`（pi、DSH 都从 `.agents/skills` 读取，不再用 `.pi/skills` 软链接），不向子目录复制。
-- **数据与产物**：`Intraday/intraday/{data_cache,output,models}/`、`Swing/engine/{data_cache,output}/`、`Swing/rotation/output/` 等一仍其旧地忽略，不入库。
+- **版本号**：仓库根 `VERSION` 是唯一权威（只管本仓库）；各子项目各有自己的 `VERSION`。
+- **改动记录**：本仓库的改动记本仓库的 `CHANGELOG.md`；子项目的改动记它们自己的 `CHANGELOG.md`。
+- **quant skill**：只有一份、实体在本仓库 `.agents/skills/quant/`（pi / pi-alt 都从 `.agents/skills` 读取），不向子项目复制；子项目需要时按路径引用本仓库这份。
+- **数据与产物**：一律不入库；tick / 订单簿大件放 macmini，其它快照走私有仓库 `market-data-backup` 的 Release。

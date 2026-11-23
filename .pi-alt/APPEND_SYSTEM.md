@@ -11,15 +11,16 @@
 - 凭证永远不入库；财务 / 账户数据即使闭源也只放本机被忽略的文件或私有子项目。
 - 研究和实盘完全隔离：不下单、不接证券账户、不发实时信号。
 
-## 2. 三个研究目录
+## 2. 子项目
 
-- `pi` 与 `pi-alt` 都只自动加载 cwd 与祖先目录的 `AGENTS.md`；动 `Intraday/` / `Swing/` / `gridtrader/` 前仍要显式读各自的 `AGENTS.md`。
-- 数据与运行时产物不入库；tick / 订单簿数据在 macmini，用 `ssh mac-mini` 在那边跑，不往本机拉 25GB。
+- 研究工作全在 Mark 的子项目独立仓库里做（`xhqing/Intraday` / `xhqing/Swing` / `xhqing/gridtrader` 公开；NewsScoreStudy / hyperliquid-research-trial / market-data-backup 私有）；本仓库只装 agent 项目本身。
+- `pi` 与 `pi-alt` 都只自动加载 cwd 与祖先目录的 `AGENTS.md`；**动哪个子项目，就在那个子项目的目录 / worktree 里开会话**，不要在本仓库里按路径去改它。
+- 数据与运行时产物不入库；tick / 订单簿大件在 macmini，用 `ssh mac-mini` 在那边跑，不往本机拉 25GB；其它快照走私有仓库 `market-data-backup` 的 Release。
 
 ## 3. Leader / Worker（pi-alt）
 
 - 本仓库是 **Agent 项目**：任何分支 / worktree 的根目录作为 cwd 的 `pi-alt` 会话，都是 **Leader**。
-- 本仓库有私有子项目 **NewsScoreStudy**、**hyperliquid-research-trial**（均 private；pi-alt-only，`.pi-alt` + 实体 `AGENTS.md`）。本仓库任何 worktree = Leader；私有子项目的 worktree = Worker。
+- 本仓库有私有子项目 **NewsScoreStudy**、**hyperliquid-research-trial**（均 private；pi-alt-only，`.pi-alt` + 实体 `AGENTS.md`）与三个公开子项目仓库（Intraday / Swing / gridtrader）。本仓库任何 worktree = Leader；私有子项目的 worktree = Worker。
 - Leader 用 shell / tmux 建 worktree、派任务、收尾；worktree 里不切 main、不 commit main。
 - 本仓库自己的任务 worktree 仍是 Leader；只有私有子项目的 worktree 才是 Worker。
 - Worker 会话用 tmux 直接起 `pi-alt`，不要用 pi 的 `agent_call` 跨身份拉起。

@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.2] - 2026-11-23
+
+### 变更（三个研究项目抽回为独立仓库；登记私有数据仓 market-data-backup）
+
+- **为什么改**：用户 2026-11-23 要求把 `Swing` / `Intraday` / `gridtrader` 从本仓库抽出来、各自恢复为独立仓库，作为 Mark 的子项目；同时把他早期建的、专门存放美股盘口数据的私有仓库 `market-data-backup`（数据挂在 Release 上）也列入子项目。直接起因：一个仓库同时装 agent 项目和研究项目，子项目的专属规则（数据源与 data_cache 口径、label 用哪个价、参数调优纪律、依赖管理方式）无法随 cwd 加载，worker 会话也起不在正确目录上。
+- **改了什么**：① 删除 `Intraday/` / `Swing/` / `gridtrader/` 三个目录（内容已全部推到各自仓库，含并入期间的最新版）；② `AGENTS.md` 的「仓库结构：三个研究目录」整节改为「仓库结构：子项目」，列出六个子项目（三个公开 + 三个私有）与各自的职责 / 边界 / Leader-Worker 归属，并改写版本 / 改动记录 / quant skill / 数据产物的统一约定；③ `.pi/APPEND_SYSTEM.md` 第 2 节「三个研究目录」改为「子项目」；④ `.pi-alt/APPEND_SYSTEM.md` 同改；⑤ 双语 README 的「仓库版图 / Repository Landscape」改为指向三个子项目仓库，两处指向 `Swing/trend/STRATEGY.md` 的链接改为跨仓链接；⑥ VERSION 0.1.1 → 0.1.2，双语 README 徽章同步。
+- **子项目侧（同批完成）**：三个仓库各自一个 PR——内容同步为并入期间的最新版、`AGENTS.md` 由指向本仓库的软链接改为实体文件、删失效的 `.pi/settings.json`、版权行改为 `xhqing and contributors`、补两份 CONTRIBUTING、VERSION 各 +1 patch（Intraday 0.1.2→0.1.3、Swing 0.1.1→0.1.2、gridtrader 0.1.2→0.1.3）；gridtrader 默认分支 `master` → `main`（GitHub rename API，分支保护随分支保留），`Swing/engine/data.py` 的 `PROJECT_ROOT` 修成仓库根。
+- **回归风险**：无——本仓库不再承载研究代码；子项目的内容是并入期间的同一批文件（只是从目录搬回仓库），策略逻辑、参数与回测口径未变。注意本地旧 clone / 脚本里写死 `quant-agent/Swing` 这类路径的，需要改指向独立仓库（本机已按新布局重接：三个仓库克隆到 `~/Developer/{Intraday,Swing,gridtrader}`，运行时缓存随目录搬迁，私有 local 文件搬到 `~/.dev/private/<仓库名>/`）。
+
 ### 变更（登记私有子项目 hyperliquid-research-trial，2026-11-23）
 
 - **为什么改**：用户 2026-11-23 要求把新建的私有仓库 `xhqing/hyperliquid-research-trial`（第二阶段考核）登记为本仓库的私有子项目；只列名与链接、不介绍内容。
