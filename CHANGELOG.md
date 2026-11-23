@@ -1,5 +1,11 @@
 # Changelog
 
+### 变更（登记私有子项目 hyperliquid-research-trial，2026-11-23）
+
+- **为什么改**：用户 2026-11-23 要求把新建的私有仓库 `xhqing/hyperliquid-research-trial`（第二阶段考核）登记为本仓库的私有子项目；只列名与链接、不介绍内容。
+- **改了什么**：① `AGENTS.md`「私有子项目（独立仓库）」由单条 NewsScoreStudy 改为列表，新增 `hyperliquid-research-trial`（含链接、private、Mark 负责），并合并「pi-alt-team 形态 + worktree 归属」那段；② `.pi-alt/APPEND_SYSTEM.md` 与 `.pi/APPEND_SYSTEM.md` 的 Leader / Worker 条由单一子项目改为两个子项目（Worker 表述泛化为「私有子项目的 worktree」）。
+- **回归风险**：无——纯规则 / 登记文档，不涉研究代码、数据与回测口径。
+
 ### 变更（pi 帽 APPEND_SYSTEM 同步改 pi-alt 表述，2026-11-15）
 
 - **为什么改**：`.dsh/` 已改为 `.pi-alt/`，但 `.pi/APPEND_SYSTEM.md` 仍写着「如果你在 DSH 下运行……见 `.dsh/`」，指向了已不存在的目录。

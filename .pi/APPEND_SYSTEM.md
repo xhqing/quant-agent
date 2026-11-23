@@ -19,8 +19,8 @@
 ## 3. Leader / Worker
 
 - 本仓库是 **Agent 项目**：任何分支 / worktree 的根目录作为 cwd 的 pi 会话，都是 **Leader**。
-- 本仓库有一个私有子项目 **NewsScoreStudy**（`github.com/xhqing/NewsScoreStudy`，private；只列名，不介绍内容）。本仓库任何 worktree = Leader；NewsScoreStudy 的任何 worktree = Worker（它有自己的 `AGENTS.md` + `.pi-alt`，没有 `.pi`）。
-- 本仓库自己的任务 worktree 仍是 Leader；只有 NewsScoreStudy 的 worktree 才是 Worker。
+- 本仓库有私有子项目 **NewsScoreStudy**、**hyperliquid-research-trial**（均 `github.com/xhqing/<名字>`，private；只列名，不介绍内容）。本仓库任何 worktree = Leader；私有子项目的任何 worktree = Worker（各自有自己的 `AGENTS.md` + `.pi-alt`，没有 `.pi`）。
+- 本仓库自己的任务 worktree 仍是 Leader；只有私有子项目的 worktree 才是 Worker。
 - Leader 的职责：同步 local main、按任务建 worktree、派任务、收尾；worktree 里不切 main、不 commit main。
 - 用 pi 的 `agent_call` / `agent_wake` 派活；若要交给某个子项目 Worker，那个子项目必须是独立仓库并已登记。
 - 详见全局 `~/.pi/agent/AGENTS.md`「Leader / Worker 的定义」。
