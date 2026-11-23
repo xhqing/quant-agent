@@ -19,9 +19,9 @@
 ## 3. Leader / Worker（pi-alt）
 
 - 本仓库是 **Agent 项目**：任何分支 / worktree 的根目录作为 cwd 的 `pi-alt` 会话，都是 **Leader**。
-- 本仓库有一个私有子项目 **NewsScoreStudy**（private；pi-alt-only，`.pi-alt` + 实体 `AGENTS.md`）。本仓库任何 worktree = Leader；NewsScoreStudy 的 worktree = Worker。
+- 本仓库有私有子项目 **NewsScoreStudy**、**hyperliquid-research-trial**（均 private；pi-alt-only，`.pi-alt` + 实体 `AGENTS.md`）。本仓库任何 worktree = Leader；私有子项目的 worktree = Worker。
 - Leader 用 shell / tmux 建 worktree、派任务、收尾；worktree 里不切 main、不 commit main。
-- 本仓库自己的任务 worktree 仍是 Leader；只有 NewsScoreStudy 的 worktree 才是 Worker。
+- 本仓库自己的任务 worktree 仍是 Leader；只有私有子项目的 worktree 才是 Worker。
 - Worker 会话用 tmux 直接起 `pi-alt`，不要用 pi 的 `agent_call` 跨身份拉起。
 
 ## 4. 交付与记录

@@ -87,7 +87,12 @@ Mark 的核心产物是**量化策略代码 + 回测标定的可信度查表**�
 - **pi**：只自动加载 cwd 与祖先目录的 `AGENTS.md`，不会加载嵌套目录的规则，必须显式去读。
 - **pi-alt**：与 pi 相同，只加载 cwd 与祖先目录；动某个目录前仍显式读它。
 
-**私有子项目（独立仓库）**：**NewsScoreStudy**（`github.com/xhqing/NewsScoreStudy`，private，Mark 负责）——只登记名与链接，不介绍内容。它是 pi-alt-team 项目：没有 `.pi`，用 `.pi-alt/` + 实体 `AGENTS.md`；它的任何 worktree = Worker，本仓库任何 worktree = Leader。
+**私有子项目（独立仓库）**——只登记名与链接，不介绍内容：
+
+- **NewsScoreStudy**（`github.com/xhqing/NewsScoreStudy`，private，Mark 负责）
+- **hyperliquid-research-trial**（`github.com/xhqing/hyperliquid-research-trial`，private，Mark 负责）
+
+两个子项目都是 pi-alt-team 项目：没有 `.pi`，用 `.pi-alt/` + 实体 `AGENTS.md`；它们的任何 worktree = Worker，本仓库任何 worktree = Leader。
 
 并入时的统一约定：
 
