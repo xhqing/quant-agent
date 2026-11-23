@@ -62,9 +62,8 @@ Mark 的核心产物是**量化策略代码 + 回测标定的可信度查表**�
 
 ## 运行时
 
-- **pi**（开源 / pi-team）：项目硬规则见 `.pi/APPEND_SYSTEM.md`（pi 自动加载）。
-- **pi-alt**（闭源 / pi-alt-team）：项目硬规则见 `.pi-alt/APPEND_SYSTEM.md`（同一套 pi 原生加载，configDir 为 `.pi-alt`）。
-- 不要应用另一个运行时的规则；共享身份与研究规则以本文件为准。
+- 项目硬规则见 `.pi/APPEND_SYSTEM.md`（pi 自动加载）；共享身份与研究规则以本文件为准。
+- 团队只有一套运行时 `pi`（2026-11-23 取消 `pi-alt` 双身份，`.pi-alt/` 已删）：开发路径按**仓库可见性**判定——本仓库 public，改动走分支 + PR + CI（`.github/workflows/validate.yml`）。
 
 ## 工作规则
 
@@ -88,11 +87,11 @@ Mark 的核心产物是**量化策略代码 + 回测标定的可信度查表**�
 - **地址**：上表未写 URL 的均为 `github.com/xhqing/<名字>`。
 - **历史**：Intraday / Swing / gridtrader 于 2026-11-08 曾并入本仓库、成为三个目录，**2026-11-23 按用户要求抽回为独立仓库**（内容含并入期间的最新版，提交历史连续）。
 - **子项目任务归 Worker**：子项目任何分支 / worktree 的会话是 Worker，只干当前 worktree 这一件事、不碰自己的 local main；本仓库任何分支 / worktree 的会话是 Leader，负责同步 local main、建 worktree、派任务、收尾。
-- **规则各管各的**：子项目规则写在它自己的 `AGENTS.md` 与 `.pi/APPEND_SYSTEM.md`（或私有项目的 `.pi-alt/`）里，不往本仓库写、本仓库也不写副本。cwd 在本仓库时，pi 只加载本仓库与祖先目录的规则，**要动哪个子项目，先显式读那个仓库的 `AGENTS.md`**。
+- **规则各管各的**：子项目规则写在它自己的 `AGENTS.md` 与 `.pi/APPEND_SYSTEM.md`（私有项目同样用 `.pi/`）里，不往本仓库写、本仓库也不写副本。cwd 在本仓库时，pi 只加载本仓库与祖先目录的规则，**要动哪个子项目，先显式读那个仓库的 `AGENTS.md`**。
 
 本仓库自己的统一约定：
 
 - **版本号**：仓库根 `VERSION` 是唯一权威（只管本仓库）；各子项目各有自己的 `VERSION`。
 - **改动记录**：本仓库的改动记本仓库的 `CHANGELOG.md`；子项目的改动记它们自己的 `CHANGELOG.md`。
-- **quant skill**：只有一份、实体在本仓库 `.agents/skills/quant/`（pi / pi-alt 都从 `.agents/skills` 读取），不向子项目复制；子项目需要时按路径引用本仓库这份。
+- **quant skill**：只有一份、实体在本仓库 `.agents/skills/quant/`（pi 从 `.agents/skills` 读取），不向子项目复制；子项目需要时按路径引用本仓库这份。
 - **数据与产物**：一律不入库；tick / 订单簿大件放 macmini，其它快照走私有仓库 `market-data-backup` 的 Release。
