@@ -1,6 +1,6 @@
 # pi-team 项目规则（quant-agent）
 
-> **Runtime: pi。** 团队只有一套运行时（2026-11-23 取消 `pi-alt` 双身份）；本仓库 public，改动走分支 + PR + CI。
+> **Runtime: pi。** 团队统一为 pi-team、只有一套运行时（2026-11-23 取消 `pi-alt` 双身份）；本仓库 public，改动走分支 + PR + CI。
 
 本文件由 pi 在 cwd 位于本仓库（或其 worktree）时自动追加进系统提示。只写本仓库特有的 pi 约定；团队通用规则在全局 `~/.pi/agent/AGENTS.md`。
 
