@@ -16,14 +16,15 @@
 - 子项目的规则写在它自己的 `AGENTS.md` 与 `.pi/APPEND_SYSTEM.md`（私有项目同样用 `.pi/`）——pi 只加载 cwd 与祖先目录的规则，**动哪个子项目，就在那个子项目的目录 / worktree 里开会话**，不要在本仓库里按路径去改它。
 - 数据与运行时产物不入库；tick / 订单簿大件在 macmini，需要时用 `macmini_run` 在那边跑；其它快照走私有仓库 `market-data-backup` 的 Release。
 
-## 3. Leader / Worker
+## 3. agentLeader / subLeader / Worker
 
-- 本仓库是 **Agent 项目**：任何分支 / worktree 的根目录作为 cwd 的 pi 会话，都是 **Leader**。
-- 本仓库有私有子项目 **NewsScoreStudy**、**hyperliquid-research-trial**（均 `github.com/xhqing/<名字>`，private；只列名，不介绍内容）与三个公开子项目仓库（Intraday / Swing / gridtrader）。本仓库任何 worktree = Leader；私有子项目的任何 worktree = Worker（各自有自己的 `AGENTS.md` + `.pi/APPEND_SYSTEM.md`）。
-- 本仓库自己的任务 worktree 仍是 Leader；只有私有子项目的 worktree 才是 Worker。
-- Leader 的职责：同步 local main、按任务建 worktree、派任务、收尾；worktree 里不切 main、不 commit main。
-- 用 pi 的 `agent_call` / `agent_wake` 派活；若要交给某个子项目 Worker，那个子项目必须是独立仓库并已登记。
-- 详见全局 `~/.pi/agent/AGENTS.md`「Leader / Worker 的定义」。
+- **判据只有两条**：cwd 所在项目 + 当前是否停在 `main`（主工作区被切到非 main 分支，同样按 Worker 算）。
+- **agentLeader** = 本仓库主工作区（main 分支）：管本仓库 + 名下全部子项目——两者的 local main 只做 `fetch` + `merge --ff-only`，另负责建删 worktree、派单、合并、发版、收尾。
+- **subLeader** = 子项目主工作区（main 分支）：只管自身项目——自身 local main 的 ff 同步、从自身 main 建删任务 worktree、派 Worker、合并自身 PR、发自身版本、回收 Worker；对上级与 sibling 子项目只读。
+- **Worker** = 任何项目的非 main 分支 worktree：只干当前 worktree 的活，干完向派它的 Leader 汇报；不碰 local main、不建删 worktree、不合并 PR、不发版、不写 worktree 以外的项目。
+- 本仓库有私有子项目 **NewsScoreStudy**、**hyperliquid-research-trial**（均 `github.com/xhqing/<名字>`，private；只列名，不介绍内容）与三个公开子项目仓库（Intraday / Swing / gridtrader），各自有自己的 `AGENTS.md` 与 `.pi/APPEND_SYSTEM.md`。
+- 用 pi 的 `agent_call` / `agent_wake` 派活：`dir` 传目标工作区绝对路径——子项目主工作区（main）包出 subLeader、子项目 worktree 包出 Worker；要交给某个子项目，那个子项目必须是独立仓库并已登记。
+- 详见全局 `~/.pi/agent/AGENTS.md`「Leader / Worker 的定义」与 `docs/agents-registry.md` 第 5 条。
 
 ## 4. 其他 pi 约定
 

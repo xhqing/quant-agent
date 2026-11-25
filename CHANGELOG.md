@@ -2,6 +2,12 @@
 
 ## [未发布]
 
+### 变更（会话角色改三级：agentLeader / subLeader / Worker，2026-11-25）
+
+- **为什么改**：用户 2026-11-25 把全团队 Leader / Worker 重定义为三级角色（判据只看 cwd 所在项目 + 当前是否停在 `main`），全局 `~/.pi/agent/AGENTS.md` 与 `docs/agents-registry.md` 已改；本仓库与子项目里还留着旧口径——「本仓库任何分支 / worktree = Leader」「子项目任何 worktree = Worker」，会把子项目主工作区的 main 会话误当成 Worker，让它建不了 worktree、合不了 PR、发不了版。
+- **改了什么**：① `AGENTS.md` 的「子项目任务归 Worker」一条改为三级角色定义（agentLeader = 本仓库主工作区 main 分支；subLeader = 子项目主工作区 main 分支；Worker = 任何项目的非 main 分支 worktree）；② `.pi/APPEND_SYSTEM.md` 第 3 节由「Leader / Worker」改写为「agentLeader / subLeader / Worker」，补上判据、各级职责与 `agent_call` 派活方式。
+- **回归风险**：无——只改角色表述，不动 quant skill、策略代码与回测口径。
+
 ### 变更（团队统一为 pi-team：运行时表述更正为 pi，补充子项目工具强制说明，2026-11-24）
 
 - **为什么改**：用户 2026-11-24 指出 `pi-alt` 已取消、团队统一为 pi-team，要求相关内容更正到 pi 模式。核对后发现：双语 README 仍写着「基于 Claude Code 构建」，与团队实际运行时（单一 `pi`）不符；规则文件里的「取消 pi-alt」表述也没有点明团队名。
