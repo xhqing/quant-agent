@@ -87,7 +87,7 @@ Mark 的核心产物是**量化策略代码 + 回测标定的可信度查表**�
 - **地址**：上表未写 URL 的均为 `github.com/xhqing/<名字>`。
 - **规则与工具强制各归各**：每个子项目的规则文件、`.pi/`、门禁脚本与工具强制都在它自己的仓库里，本仓库不写副本、不代管；动哪个子项目，就在那个子项目的目录 / worktree 里开会话。
 - **历史**：Intraday / Swing / gridtrader 于 2026-11-08 曾并入本仓库、成为三个目录，**2026-11-23 按用户要求抽回为独立仓库**（内容含并入期间的最新版，提交历史连续）。
-- **子项目任务归 Worker**：子项目任何分支 / worktree 的会话是 Worker，只干当前 worktree 这一件事、不碰自己的 local main；本仓库任何分支 / worktree 的会话是 Leader，负责同步 local main、建 worktree、派任务、收尾。
+- **会话角色三级（2026-11-25 团队统一口径）**：判据只有两条——cwd 所在项目 + 当前是否停在 `main`。**agentLeader** = 本仓库主工作区（main 分支），管本仓库 + 名下全部子项目：local main 只做 `fetch` + `merge --ff-only`，另负责建删 worktree、派单、合并、发版、收尾；**subLeader** = 子项目主工作区（main 分支），只管自身项目：自身 local main 的 ff 同步、从自身 main 建删任务 worktree、派 Worker、合并自身 PR、发自身版本、回收 Worker，对上级与 sibling 子项目只读；**Worker** = 任何项目的非 main 分支 worktree，只干当前 worktree 这一件事，不碰 local main、不建删 worktree、不合并 PR、不发版。
 - **规则各管各的**：子项目规则写在它自己的 `AGENTS.md` 与 `.pi/APPEND_SYSTEM.md`（私有项目同样用 `.pi/`）里，不往本仓库写、本仓库也不写副本。cwd 在本仓库时，pi 只加载本仓库与祖先目录的规则，**要动哪个子项目，先显式读那个仓库的 `AGENTS.md`**。
 
 本仓库自己的统一约定：
